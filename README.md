@@ -1,4 +1,3 @@
-::: {align="center"}
 # 🛒 Quetta Dry Fruits --- E-Commerce Web Application
 
 An e-commerce platform built to bring direct, unadulterated organic dry
@@ -130,25 +129,40 @@ implementation of:
 
 ## 🖼️ Screenshots & Demos
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                  Home Page Showcase                                                             Dynamic Product Catalog
-  ---------------------------------------------------------------------------------- --------------------------------------------------------------------------------
-                                     ![Home Page                                                                        ![Product
-   Banner](https://via.placeholder.com/800x450.png?text=Home+Page+Showcase+Preview)   Catalog](https://via.placeholder.com/800x450.png?text=Product+Catalog+Preview)
+### 🛍️ Client & Storefront Pages
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| 🏠 Home Page (`Home.jsx`) | 📦 Product Catalog (`Products.jsx`) |
+| :---: | :---: |
+| ![Home Page Showcase](./assets/Home_1.png) | ![Product Catalog Showcase](https://via.placeholder.com/800x450.png?text=Products.jsx+Preview) |
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                  Admin Financial Analytics                                                                  Order Management System
-  ----------------------------------------------------------------------------------------- -----------------------------------------------------------------------------------------
-                                       ![Admin Profit                                                                            ![Admin Orders
-   Analytics](https://via.placeholder.com/800x450.png?text=Admin+Profit+Analytics+Preview)   Dashboard](https://via.placeholder.com/800x450.png?text=Admin+Orders+Dashboard+Preview)
+| 🔍 Product Detail View (`ProductDetail.jsx`) | 🛒 Shopping Cart (`Cart.jsx`) |
+| :---: | :---: |
+| ![Product Detail View](https://via.placeholder.com/800x450.png?text=ProductDetail.jsx+Preview) | ![Shopping Cart Showcase](https://via.placeholder.com/800x450.png?text=Cart.jsx+Preview) |
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| 📞 Contact Page (`Contact.jsx`) | 🤖 AI Chatbot Widget (`ChatBotWidget.jsx`) |
+| :---: | :---: |
+| ![Contact Page View](https://via.placeholder.com/800x450.png?text=Contact.jsx+Preview) | ![AI Chatbot Widget](https://via.placeholder.com/800x450.png?text=ChatBotWidget.jsx+Preview) |
 
-> Replace the placeholder images above with actual project screenshots
-> when available.
+| 🧭 Navigation Bar (`Navbar.jsx`) |
+| :---: |
+| ![Navbar Showcase](https://via.placeholder.com/800x450.png?text=Navbar.jsx+Preview) |
 
+---
+
+### 🔐 Administrative Portal (`/admin/*`)
+
+| 🔑 Admin Login (`AdminLogin.jsx`) | 📊 Admin Dashboard (`AdminDashboard.jsx`) |
+| :---: | :---: |
+| ![Admin Login Screen](https://via.placeholder.com/800x450.png?text=AdminLogin.jsx+Preview) | ![Admin Dashboard Screen](https://via.placeholder.com/800x450.png?text=AdminDashboard.jsx+Preview) |
+
+| 🏷️ Inventory Management (`AdminProducts.jsx`) | 📦 Order Fulfillment (`AdminOrders.jsx`) |
+| :---: | :---: |
+| ![Admin Products Screen](https://via.placeholder.com/800x450.png?text=AdminProducts.jsx+Preview) | ![Admin Orders Screen](https://via.placeholder.com/800x450.png?text=AdminOrders.jsx+Preview) |
+
+| 📈 Profit Analytics (`AdminProfit.jsx`) | 💬 Customer Feedback (`AdminFeedback.jsx`) |
+| :---: | :---: |
+| ![Admin Profit Analytics](https://via.placeholder.com/800x450.png?text=AdminProfit.jsx+Preview) | ![Admin Feedback Panel](https://via.placeholder.com/800x450.png?text=AdminFeedback.jsx+Preview) |
+> `![Home Page Showcase](./screenshots/home.png)`
 ------------------------------------------------------------------------
 
 ## 🛠️ Tech Stack
@@ -729,20 +743,16 @@ cloud deployment, and full-stack application architecture.
 
 ### 🔗 Connect With Me
 
-```{=html}
 <p align="center">
-```
-`<a href="https://github.com/muhammadikram23">`{=html}
-`<img src="https://img.shields.io/badge/GitHub-muhammadikram23-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>`{=html}
-`</a>`{=html}
+  <a href="https://github.com/muhammadikram23">
+    <img src="https://img.shields.io/badge/GitHub-muhammadikram23-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+  </a>
 
-`<a href="https://www.linkedin.com/in/muhammadikram23/">`{=html}
-`<img src="https://img.shields.io/badge/LinkedIn-Muhammad%20Ikram-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>`{=html}
-`</a>`{=html}
-
-```{=html}
+  <a href="https://www.linkedin.com/in/muhammadikram23/">
+    <img src="https://img.shields.io/badge/LinkedIn-Muhammad%20Ikram-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+  </a>
 </p>
-```
+
 ### 📌 Project Links
 
   ------------------------------------------------------------------------------------------------------------------------
@@ -759,7 +769,7 @@ cloud deployment, and full-stack application architecture.
 
   🚀 Live Backend API                 [quetta-dry-fruit-backend.vercel.app](https://quetta-dry-fruit-backend.vercel.app)
 
-  💼 LinkedIn                         [Muhammad Ikram](https://www.linkedin.com/in/muhammadikram23/)
+  💼 LinkedIn                         [Muhammad Ikram](www.linkedin.com/in/muhammad-ikram-085823350)
   ------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -888,11 +898,9 @@ Production Application
 
 ------------------------------------------------------------------------
 
-::: {align="center"}
 ## 🛒 Quetta Dry Fruits
 
 ### From Quetta's markets to your doorstep. 🌰
 
 ⭐ **If you find this project useful, consider giving the repository a
 star!**
-:::
