@@ -24,6 +24,7 @@ export default function AdminFeedback() {
     }
   };
 
+  
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this feedback entry?')) return;
     try {
