@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import API from '../api'; // Central Axios Instance
 import { Calendar, TrendingUp, DollarSign, Package, RefreshCw } from 'lucide-react';
 
 export default function AdminProfit() {
   const [data, setData] = useState({ summary: {}, products: [] });
-  const [timeframe, setTimeframe] = useState('all');
+  const [timeframe, setTimeframe] = useState('all'); // 'all', 'daily', 'weekly', 'monthly'
   const [loading, setLoading] = useState(false);
 
-  // Fetch updated profit stats from DB
-  const loadProfitAnalytics = () => {
+  // Fetch updated profit stats from DB with timeframe parameter
+  const loadProfitAnalytics = useCallback(() => {
     setLoading(true);
-    API.get('/api/admin/analytics/profit-details')
-      .then(res => {
-        setData(res.data);
+    API.get(`/api/admin/analytics/profit-details?timeframe=${timeframe}`)
+      .then((res) => {
+        setData(res.data || { summary: {}, products: [] });
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error loading profit stats:', err);
         setLoading(false);
       });
-  };
+  }, [timeframe]);
 
+  // Refetch when timeframe tab changes
   useEffect(() => {
     loadProfitAnalytics();
-  }, []);
+  }, [loadProfitAnalytics]);
 
   const summary = data.summary || {};
   const products = data.products || [];
@@ -39,7 +40,8 @@ export default function AdminProfit() {
         </div>
         <button 
           onClick={loadProfitAnalytics} 
-          className="self-start sm:self-auto flex items-center gap-2 bg-amber-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-800 transition active:scale-95"
+          disabled={loading}
+          className="self-start sm:self-auto flex items-center gap-2 bg-amber-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-800 transition active:scale-95 disabled:opacity-50"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh Data
         </button>
@@ -103,7 +105,9 @@ export default function AdminProfit() {
         <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
           <div className="flex items-center gap-2">
             <Package className="w-5 h-5 text-amber-800 shrink-0" />
-            <h3 className="font-bold text-slate-800 text-sm sm:text-base">Delivered Product Breakdown</h3>
+            <h3 className="font-bold text-slate-800 text-sm sm:text-base">
+              Delivered Product Breakdown ({timeframe.toUpperCase()})
+            </h3>
           </div>
           
           <div className="flex bg-slate-100 p-1 rounded-xl text-xs font-semibold overflow-x-auto no-scrollbar max-w-full">
@@ -134,35 +138,40 @@ export default function AdminProfit() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {products.length === 0 ? (
+              {loading ? (
                 <tr>
                   <td colSpan="5" className="p-6 text-center text-slate-400 font-medium">
-                    No profit records available.
+                    Loading analytics data...
+                  </td>
+                </tr>
+              ) : products.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="p-6 text-center text-slate-400 font-medium">
+                    No profit records available for this period.
                   </td>
                 </tr>
               ) : (
-                products.map((item) => {
-                  let displayedProfit = item.product_net_profit;
-                  if (timeframe === 'daily') displayedProfit = item.daily_profit;
-                  if (timeframe === 'weekly') displayedProfit = item.weekly_profit;
-                  if (timeframe === 'monthly') displayedProfit = item.monthly_profit;
-
-                  return (
-                    <tr key={item.product_id} className="hover:bg-amber-50/50 transition">
-                      <td className="p-3 sm:p-4 font-bold text-slate-800 whitespace-nowrap">{item.product_name}</td>
-                      <td className="p-3 sm:p-4 whitespace-nowrap">
-                        <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-medium">
-                          {item.category}
-                        </span>
-                      </td>
-                      <td className="p-3 sm:p-4 whitespace-nowrap">{item.total_kg_sold} kg</td>
-                      <td className="p-3 sm:p-4 whitespace-nowrap">PKR {Number(item.total_revenue).toLocaleString()}</td>
-                      <td className="p-3 sm:p-4 font-black text-emerald-600 whitespace-nowrap">
-                        PKR {Number(displayedProfit).toLocaleString()}
-                      </td>
-                    </tr>
-                  );
-                })
+                products.map((item) => (
+                  <tr key={item.product_id || item.id} className="hover:bg-amber-50/50 transition">
+                    <td className="p-3 sm:p-4 font-bold text-slate-800 whitespace-nowrap">
+                      {item.product_name || item.title}
+                    </td>
+                    <td className="p-3 sm:p-4 whitespace-nowrap">
+                      <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                        {item.category || 'Dry Fruits'}
+                      </span>
+                    </td>
+                    <td className="p-3 sm:p-4 whitespace-nowrap">
+                      {Number(item.total_kg_sold || 0)} kg
+                    </td>
+                    <td className="p-3 sm:p-4 whitespace-nowrap">
+                      PKR {Number(item.total_revenue || 0).toLocaleString()}
+                    </td>
+                    <td className="p-3 sm:p-4 font-black text-emerald-600 whitespace-nowrap">
+                      PKR {Number(item.product_net_profit || 0).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>
