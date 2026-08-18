@@ -896,6 +896,19 @@ Production Application
 
 ------------------------------------------------------------------------
 
+## ⚠️ Disclaimer & Image Copyright Notice
+
+All product images and visual assets used in this application were retrieved from Google Search and public domain web sources for **educational and portfolio demonstration purposes only**.
+
+* **Copyright Ownership:** All image rights, trademarks, and copyrights belong entirely to their respective owners and original creators.
+* **Non-Commercial Use:** This project is strictly non-commercial and is built solely as an educational project to demonstrate full-stack web development capabilities.
+* **No Selling:** None of the images or media assets are being used for commercial sales, monetization, or profit generation.
+
+*If you are the copyright holder of any media used in this project and would like it removed or attributed differently, please feel free to open an issue or reach out directly, and it will be updated immediately.*
+
+------------------------------------------------------------------------
+
+
 ## 🛒 Quetta Dry Fruits
 
 ### From Quetta's markets to your doorstep. 🌰
