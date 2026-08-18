@@ -133,9 +133,9 @@ implementation of:
 
 | 🏠 Home Page (`Home.jsx`) | 📦 Product Catalog (`Products.jsx`) |
 | :---: | :---: |
-| ![Home Page Showcase](./assets/Home_1.png) | ![Home Page Showcase](./assets/Home_2.png) |
-| ![Home Page Showcase](./assets/Home_3.png) | ![Home Page Showcase](./assets/Home_4.png) |
 | ![Home Page Showcase](./assets/Home_1.png) | ![Product Catalog Showcase](./assets/Products.png) |
+| ![Home Page Showcase](./assets/Home_3.png) | ![Home Page Showcase](./assets/Home_4.png) |
+| ![Home Page Showcase](./assets/Home_2.png) |  |
 
 | 🔍 Product Detail View (`ProductDetail.jsx`) | 🛒 Shopping Cart (`Cart.jsx`) |
 | :---: | :---: |
