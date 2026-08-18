@@ -147,7 +147,7 @@ export default function Home() {
             {/* 1. Hero Banner */}
             <div className="bg-gradient-to-r from-amber-800 to-amber-950 text-white p-10 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between">
                 <div className="space-y-4 max-w-2xl">
-                    <span className="bg-amber-500/20 text-amber-300 text-xs font-bold uppercase px-3 py-1 rounded-full border border-amber-400/30">
+                    <span className="inline-block max-w-full text-center text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-wider px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 whitespace-normal sm:whitespace-nowrap leading-tight">
                         100% Organic Balochistan Harvest
                     </span>
                     <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
