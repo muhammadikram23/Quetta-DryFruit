@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api'; // Central Axios Instance
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Edit, ShieldCheck, Eye, AlertCircle } from 'lucide-react';
+import { ShoppingCart, Edit, ShieldCheck, Eye, AlertCircle, Info } from 'lucide-react';
 
 export default function Products({ addToCart }) {
   const [products, setProducts] = useState([]);
@@ -89,7 +89,7 @@ export default function Products({ addToCart }) {
                     alt={p.title} 
                     className="w-full h-48 object-cover group-hover:scale-105 transition duration-300 cursor-pointer" 
                   />
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                     <span className="bg-white/90 text-slate-800 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow">
                       <Eye className="w-3.5 h-3.5 text-amber-800" /> View Details
                     </span>
@@ -166,7 +166,15 @@ export default function Products({ addToCart }) {
               </div>
 
               {/* ACTION BUTTONS (Differentiated for Admin vs Customer) */}
-              <div className="p-4 pt-0">
+              <div className="p-4 pt-0 space-y-2">
+                {/* 👁️ Separate View Details Button */}
+                <Link
+                  to={`/products/${p.id}`}
+                  className="w-full bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition border border-amber-300"
+                >
+                  <Info className="w-3.5 h-3.5 text-amber-800" /> View Details
+                </Link>
+
                 {isAdmin ? (
                   /* ADMIN ACTION: Edit Inventory Directly */
                   <button 

@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Award } from 'lucide-react';
+import API from '../api'; // 👈 1. Fix: Centralized API instance used
+import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Award, AlertCircle } from 'lucide-react';
 
 export default function ProductDetail({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  // Weight Selection State
+  const [weightType, setWeightType] = useState('preset'); // 'preset' | 'custom'
   const [selectedWeight, setSelectedWeight] = useState(1);
+  const [customInput, setCustomInput] = useState('');
   const [addedMessage, setAddedMessage] = useState(false);
 
   const isAdmin = localStorage.getItem('adminToken');
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products/${id}`)
+    setLoading(true);
+    // Fetch product details via standard API instance
+    API.get(`/api/products/${id}`)
       .then(res => {
         setProduct(res.data);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('Error fetching product:', err);
         setLoading(false);
       });
   }, [id]);
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-16 text-center text-slate-500">
+      <div className="max-w-7xl mx-auto px-4 py-16 text-center text-slate-500 font-semibold">
         Loading product details...
       </div>
     );
@@ -37,6 +43,7 @@ export default function ProductDetail({ addToCart }) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center space-y-4">
         <h2 className="text-2xl font-bold text-slate-800">Product Not Found</h2>
+        <p className="text-xs text-slate-500">Could not retrieve details for ID: {id}</p>
         <Link to="/products" className="text-amber-900 font-bold hover:underline inline-flex items-center gap-1">
           <ArrowLeft className="w-4 h-4" /> Back to Catalog
         </Link>
@@ -44,7 +51,32 @@ export default function ProductDetail({ addToCart }) {
     );
   }
 
+  // Weight dropdown handler
+  const handleWeightChange = (e) => {
+    const val = e.target.value;
+    if (val === 'custom') {
+      setWeightType('custom');
+      setSelectedWeight(0);
+      setCustomInput('');
+    } else {
+      setWeightType('preset');
+      setSelectedWeight(parseFloat(val));
+    }
+  };
+
+  // Custom weight input handler
+  const handleCustomInputChange = (e) => {
+    const val = e.target.value;
+    setCustomInput(val);
+    setSelectedWeight(parseFloat(val) || 0);
+  };
+
+  // Stock Checks
+  const isExceedingStock = selectedWeight > Number(product.stock_kg);
+  const isInvalidWeight = selectedWeight <= 0;
+
   const handleAddToCart = () => {
+    if (isExceedingStock || isInvalidWeight) return;
     addToCart(product, selectedWeight);
     setAddedMessage(true);
     setTimeout(() => setAddedMessage(false), 3000);
@@ -79,7 +111,7 @@ export default function ProductDetail({ addToCart }) {
           <div className="space-y-3">
             <div className="flex justify-between items-start">
               <span className="text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-100 px-3 py-1 rounded-full border border-amber-200">
-                {product.category} • {product.origin}
+                {product.category} • {product.origin || 'Quetta'}
               </span>
             </div>
 
@@ -97,19 +129,49 @@ export default function ProductDetail({ addToCart }) {
           {/* Purchasing Controls / Admin Notice */}
           {!isAdmin ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between bg-amber-50 p-3 rounded-xl border border-amber-200">
-                <span className="text-sm font-bold text-amber-950">Select Quantity / Weight:</span>
-                <select 
-                  value={selectedWeight} 
-                  onChange={(e) => setSelectedWeight(parseFloat(e.target.value))}
-                  className="bg-white text-sm font-bold text-amber-950 border border-amber-300 rounded-lg px-3 py-2 focus:outline-none"
-                >
-                  <option value={0.25}>250 grams (PKR {(product.price_per_kg * 0.25).toLocaleString()})</option>
-                  <option value={0.5}>500 grams (PKR {(product.price_per_kg * 0.5).toLocaleString()})</option>
-                  <option value={1}>1.00 kg (PKR {(product.price_per_kg * 1).toLocaleString()})</option>
-                  <option value={2}>2.00 kg (PKR {(product.price_per_kg * 2).toLocaleString()})</option>
-                  <option value={5}>5.00 kg (PKR {(product.price_per_kg * 5).toLocaleString()})</option>
-                </select>
+              <div className="space-y-2 bg-amber-50/80 p-4 rounded-2xl border border-amber-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-amber-950">Select Weight:</span>
+                  <select 
+                    value={weightType === 'custom' ? 'custom' : selectedWeight} 
+                    onChange={handleWeightChange}
+                    className="bg-white text-sm font-bold text-amber-950 border border-amber-300 rounded-lg px-3 py-2 focus:outline-none cursor-pointer"
+                  >
+                    <option value={0.25}>250 grams (PKR {(product.price_per_kg * 0.25).toLocaleString()})</option>
+                    <option value={0.5}>500 grams (PKR {(product.price_per_kg * 0.5).toLocaleString()})</option>
+                    <option value={1}>1.00 kg (PKR {(product.price_per_kg * 1).toLocaleString()})</option>
+                    <option value={2}>2.00 kg (PKR {(product.price_per_kg * 2).toLocaleString()})</option>
+                    <option value={5}>5.00 kg (PKR {(product.price_per_kg * 5).toLocaleString()})</option>
+                    <option value="custom">-- Custom Amount --</option>
+                  </select>
+                </div>
+
+                {/* Custom Weight Field */}
+                {weightType === 'custom' && (
+                  <div className="pt-2 space-y-1">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        step="0.05"
+                        min="0.05"
+                        max={product.stock_kg}
+                        placeholder={`Max ${product.stock_kg} kg`}
+                        value={customInput}
+                        onChange={handleCustomInputChange}
+                        className={`w-full bg-white text-xs font-semibold p-2.5 rounded-lg border outline-none ${
+                          isExceedingStock ? 'border-red-500 bg-red-50 text-red-900' : 'border-amber-300 focus:border-amber-500'
+                        }`}
+                      />
+                      <span className="text-xs font-bold text-amber-900">KG</span>
+                    </div>
+
+                    {isExceedingStock && (
+                      <p className="text-xs text-red-600 font-bold flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> Quantity exceeds available stock ({product.stock_kg} kg)
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {addedMessage && (
@@ -121,15 +183,15 @@ export default function ProductDetail({ addToCart }) {
               <div className="flex gap-4">
                 <button 
                   onClick={handleAddToCart}
-                  disabled={product.stock_kg <= 0}
-                  className="flex-1 bg-amber-900 hover:bg-amber-800 disabled:bg-slate-300 text-amber-100 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition shadow-md"
+                  disabled={product.stock_kg <= 0 || isExceedingStock || isInvalidWeight}
+                  className="flex-1 bg-amber-900 hover:bg-amber-800 disabled:bg-slate-300 text-amber-100 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition shadow-md disabled:cursor-not-allowed"
                 >
                   <ShoppingCart className="w-5 h-5" /> Add to Cart
                 </button>
                 <button 
                   onClick={() => { handleAddToCart(); navigate('/cart'); }}
-                  disabled={product.stock_kg <= 0}
-                  className="flex-1 bg-emerald-700 hover:bg-emerald-600 disabled:bg-slate-300 text-white font-bold py-3.5 rounded-xl transition shadow-md"
+                  disabled={product.stock_kg <= 0 || isExceedingStock || isInvalidWeight}
+                  className="flex-1 bg-emerald-700 hover:bg-emerald-600 disabled:bg-slate-300 text-white font-bold py-3.5 rounded-xl transition shadow-md disabled:cursor-not-allowed"
                 >
                   Buy Now
                 </button>
@@ -143,7 +205,7 @@ export default function ProductDetail({ addToCart }) {
               <p className="text-xs text-slate-500">Purchasing controls are disabled for admin accounts.</p>
               <button 
                 onClick={() => navigate('/admin/products')} 
-                className="w-full bg-slate-800 text-white font-bold text-xs py-2 rounded-lg"
+                className="w-full bg-slate-800 text-white font-bold text-xs py-2 rounded-lg hover:bg-slate-700 transition"
               >
                 Manage Product Inventory
               </button>
