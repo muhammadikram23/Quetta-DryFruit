@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  Store, 
-  ShoppingCart, 
-  LogOut, 
-  ShieldCheck, 
-  ShoppingBag, 
-  TrendingUp, 
+import {
+  Store,
+  ShoppingCart,
+  LogOut,
+  ShieldCheck,
+  ShoppingBag,
+  TrendingUp,
   MessageSquare,
-  PackageCheck
+  PackageCheck,
+  Info
 } from 'lucide-react';
+
+// Import the About page component
+import About from '../pages/About';
 
 export default function Navbar({ cartCount }) {
   const navigate = useNavigate();
@@ -32,7 +36,7 @@ export default function Navbar({ cartCount }) {
   return (
     <nav className="bg-amber-900 text-amber-100 shadow-md sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        
+
         {/* Store Logo & Branding */}
         <Link to={isAdmin ? "/admin" : "/"} className="flex items-center gap-2">
           <Store className="w-7 h-7 text-amber-400" />
@@ -48,13 +52,13 @@ export default function Navbar({ cartCount }) {
 
         {/* Dynamic Navigation Links */}
         <div className="flex gap-6 items-center font-medium text-sm">
-          
+
           {/* ================= ADMIN VIEW ================= */}
           {isAdmin ? (
             <div className="flex items-center gap-5">
-              
-              <Link 
-                to="/products" 
+
+              <Link
+                to="/products"
                 className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
                   location.pathname === '/products' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -62,8 +66,8 @@ export default function Navbar({ cartCount }) {
                 <PackageCheck className="w-4 h-4 text-amber-400" /> Catalog Preview
               </Link>
 
-              <Link 
-                to="/admin/orders" 
+              <Link
+                to="/admin/orders"
                 className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
                   location.pathname === '/admin/orders' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -71,8 +75,8 @@ export default function Navbar({ cartCount }) {
                 <ShoppingBag className="w-4 h-4 text-amber-400" /> Orders
               </Link>
 
-              <Link 
-                to="/admin/profit" 
+              <Link
+                to="/admin/profit"
                 className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
                   location.pathname === '/admin/profit' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -80,8 +84,8 @@ export default function Navbar({ cartCount }) {
                 <TrendingUp className="w-4 h-4 text-amber-400" /> Profit & Analytics
               </Link>
 
-              <Link 
-                to="/admin/feedback" 
+              <Link
+                to="/admin/feedback"
                 className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
                   location.pathname === '/admin/feedback' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -94,10 +98,10 @@ export default function Navbar({ cartCount }) {
                 <Link to="/admin" className="text-amber-300 font-bold flex items-center gap-1 text-xs">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" /> Dashboard
                 </Link>
-                
-                <button 
-                  onClick={handleLogout} 
-                  title="Logout Admin" 
+
+                <button
+                  onClick={handleLogout}
+                  title="Logout Admin"
                   className="text-rose-400 hover:text-rose-300 transition pl-1 border-l border-amber-800"
                 >
                   <LogOut className="w-4 h-4" />
@@ -108,9 +112,10 @@ export default function Navbar({ cartCount }) {
           ) : (
             /* ================= CUSTOMER VIEW ================= */
             <div className="flex items-center gap-6">
-              
-              <Link 
-                to="/" 
+
+              {/* Home Link */}
+              <Link
+                to="/"
                 className={`hover:text-amber-300 transition ${
                   location.pathname === '/' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -118,8 +123,9 @@ export default function Navbar({ cartCount }) {
                 Home
               </Link>
 
-              <Link 
-                to="/products" 
+              {/* Products Catalog Link */}
+              <Link
+                to="/products"
                 className={`hover:text-amber-300 transition ${
                   location.pathname.startsWith('/products') ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -127,8 +133,9 @@ export default function Navbar({ cartCount }) {
                 Products Catalog
               </Link>
 
-              <Link 
-                to="/contact" 
+              {/* Contact Us Link */}
+              <Link
+                to="/contact"
                 className={`hover:text-amber-300 transition ${
                   location.pathname === '/contact' ? 'text-amber-300 font-bold' : ''
                 }`}
@@ -136,16 +143,27 @@ export default function Navbar({ cartCount }) {
                 Contact Us
               </Link>
 
-              <Link 
-                to="/admin/login" 
+              {/* About Us Link */}
+              <Link
+                to="/about"
+                className={`hover:text-amber-300 transition ${
+                  location.pathname === '/about' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                About Us
+              </Link>
+
+              {/* Admin Portal Link */}
+              <Link
+                to="/admin/login"
                 className="text-amber-300/80 hover:text-amber-200 text-xs font-semibold bg-amber-950/60 px-2.5 py-1 rounded-md border border-amber-800"
               >
                 Admin Portal
               </Link>
 
               {/* Customer Shopping Cart Badge */}
-              <Link 
-                to="/cart" 
+              <Link
+                to="/cart"
                 className="relative bg-amber-800 hover:bg-amber-700 p-2 rounded-full transition flex items-center justify-center shadow-sm"
                 aria-label="Shopping Cart"
               >

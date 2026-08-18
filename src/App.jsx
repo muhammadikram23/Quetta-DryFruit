@@ -9,6 +9,7 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
+import About from './pages/About'; // 👈 Added About Page Import
 
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/products/:id" element={<ProductDetail addToCart={handleAddToCart} />} />
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} /> {/* 👈 Added About Route */}
 
         {/* Admin Authentication & Protected Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
