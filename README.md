@@ -133,19 +133,17 @@ implementation of:
 
 | 🏠 Home Page (`Home.jsx`) | 📦 Product Catalog (`Products.jsx`) |
 | :---: | :---: |
-| ![Home Page Showcase](./assets/Home_1.png) | ![Product Catalog Showcase](https://via.placeholder.com/800x450.png?text=Products.jsx+Preview) |
+| ![Home Page Showcase](./assets/Home_1.png) | ![Home Page Showcase](./assets/Home_2.png) |
+| ![Home Page Showcase](./assets/Home_3.png) | ![Home Page Showcase](./assets/Home_4.png) |
+| ![Home Page Showcase](./assets/Home_1.png) | ![Product Catalog Showcase](./assets/Products.png) |
 
 | 🔍 Product Detail View (`ProductDetail.jsx`) | 🛒 Shopping Cart (`Cart.jsx`) |
 | :---: | :---: |
-| ![Product Detail View](https://via.placeholder.com/800x450.png?text=ProductDetail.jsx+Preview) | ![Shopping Cart Showcase](https://via.placeholder.com/800x450.png?text=Cart.jsx+Preview) |
+| ![Product Detail View](./assets/productDetails.png) | ![Shopping Cart Showcase](./assets/cart.png) |
 
 | 📞 Contact Page (`Contact.jsx`) | 🤖 AI Chatbot Widget (`ChatBotWidget.jsx`) |
 | :---: | :---: |
-| ![Contact Page View](https://via.placeholder.com/800x450.png?text=Contact.jsx+Preview) | ![AI Chatbot Widget](https://via.placeholder.com/800x450.png?text=ChatBotWidget.jsx+Preview) |
-
-| 🧭 Navigation Bar (`Navbar.jsx`) |
-| :---: |
-| ![Navbar Showcase](https://via.placeholder.com/800x450.png?text=Navbar.jsx+Preview) |
+| ![Contact Page View](./assets/Contact.png) | ![AI Chatbot Widget](./assets/chatbot.png) |
 
 ---
 
@@ -153,16 +151,16 @@ implementation of:
 
 | 🔑 Admin Login (`AdminLogin.jsx`) | 📊 Admin Dashboard (`AdminDashboard.jsx`) |
 | :---: | :---: |
-| ![Admin Login Screen](https://via.placeholder.com/800x450.png?text=AdminLogin.jsx+Preview) | ![Admin Dashboard Screen](https://via.placeholder.com/800x450.png?text=AdminDashboard.jsx+Preview) |
+| ![Admin Login Screen](./assets/AdminLogin.png) | ![Admin Dashboard Screen](./assets/AdminDashboard.png) |
 
 | 🏷️ Inventory Management (`AdminProducts.jsx`) | 📦 Order Fulfillment (`AdminOrders.jsx`) |
 | :---: | :---: |
-| ![Admin Products Screen](https://via.placeholder.com/800x450.png?text=AdminProducts.jsx+Preview) | ![Admin Orders Screen](https://via.placeholder.com/800x450.png?text=AdminOrders.jsx+Preview) |
+| ![Admin Products Screen](./assets/ManageProducts.png) | ![Admin Orders Screen](./assets/Orders.png) |
 
 | 📈 Profit Analytics (`AdminProfit.jsx`) | 💬 Customer Feedback (`AdminFeedback.jsx`) |
 | :---: | :---: |
-| ![Admin Profit Analytics](https://via.placeholder.com/800x450.png?text=AdminProfit.jsx+Preview) | ![Admin Feedback Panel](https://via.placeholder.com/800x450.png?text=AdminFeedback.jsx+Preview) |
-> `![Home Page Showcase](./screenshots/home.png)`
+| ![Admin Profit Analytics](./assets/Profit.png) | ![Admin Feedback Panel](./assets/AdminFeedback.png) |
+> `
 ------------------------------------------------------------------------
 
 ## 🛠️ Tech Stack
