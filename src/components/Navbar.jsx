@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   Store, 
   ShoppingCart, 
@@ -12,10 +12,19 @@ import {
 
 export default function Navbar({ cartCount }) {
   const navigate = useNavigate();
-  const isAdmin = localStorage.getItem('adminToken');
+  const location = useLocation();
+
+  // Dynamically track admin authentication state
+  const [isAdmin, setIsAdmin] = useState(() => !!localStorage.getItem('adminToken'));
+
+  // Re-evaluate admin token whenever route changes
+  useEffect(() => {
+    setIsAdmin(!!localStorage.getItem('adminToken'));
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
+    setIsAdmin(false);
     navigate('/admin/login');
   };
 
@@ -30,17 +39,18 @@ export default function Navbar({ cartCount }) {
 
         {/* Dynamic Navigation Links */}
         <div className="flex gap-6 items-center font-medium text-sm">
+          {/* General Navigation Links */}
           <Link to="/" className="hover:text-amber-300">Home</Link>
           <Link to="/products" className="hover:text-amber-300">Products Catalog</Link>
+          <Link to="/contact" className="hover:text-amber-300">Contact</Link>
 
+          {/* Admin Section (Rendered when Admin Token exists) */}
           {isAdmin ? (
-            <>
-              {/* ADMIN MODE LINKS */}
+            <div className="flex items-center gap-4 border-l border-amber-700/60 pl-4">
               <Link to="/admin/orders" className="hover:text-amber-300 flex items-center gap-1 text-amber-200">
                 <ShoppingBag className="w-4 h-4" /> Orders
               </Link>
 
-              {/* 🟢 Added Profit & Feedback Links for Admin */}
               <Link to="/admin/profit" className="hover:text-amber-300 flex items-center gap-1 text-amber-200">
                 <TrendingUp className="w-4 h-4" /> Profit
               </Link>
@@ -61,23 +71,26 @@ export default function Navbar({ cartCount }) {
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              {/* CUSTOMER MODE LINKS */}
-              <Link to="/contact" className="hover:text-amber-300">Contact</Link>
-              <Link to="/admin/login" className="text-amber-300 hover:text-amber-200">Admin Login</Link>
-
-              <Link to="/cart" className="relative bg-amber-800 hover:bg-amber-700 p-2 rounded-full transition">
-                <ShoppingCart className="w-5 h-5 text-amber-200" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </>
+            <Link to="/admin/login" className="text-amber-300 hover:text-amber-200 font-medium">
+              Admin Login
+            </Link>
           )}
+
+          {/* Cart Icon (Always Available) */}
+          <Link 
+            to="/cart" 
+            className="relative bg-amber-800 hover:bg-amber-700 p-2 rounded-full transition flex items-center justify-center"
+            aria-label="Shopping Cart"
+          >
+            <ShoppingCart className="w-5 h-5 text-amber-200" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+                {cartCount}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
     </nav>

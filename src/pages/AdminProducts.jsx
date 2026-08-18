@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // 👈 1. Link import kiya
 import API from '../api'; // Use central API instance
-import { Edit2, Save, X, Package, Plus, Trash2 } from 'lucide-react';
+import { Edit2, Save, X, Package, Plus, Trash2, Eye } from 'lucide-react'; // 👈 2. Eye icon import kiya
 
 export default function AdminProducts() {
     const [products, setProducts] = useState([]);
@@ -194,6 +195,16 @@ export default function AdminProducts() {
                                         </td>
                                         <td className="p-4 font-semibold">{p.stock_kg} kg</td>
                                         <td className="p-4 flex items-center gap-2">
+                                            {/* 👁️ 3. VIEW PRODUCT BUTTON ADDED HERE */}
+                                            <Link
+                                                to={`/products/${p.id}`}
+                                                className="flex items-center gap-1 bg-sky-600 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-sky-700 transition"
+                                                title="View Single Product Page"
+                                            >
+                                                <Eye className="w-3.5 h-3.5" /> View
+                                            </Link>
+
+                                            {/* Edit Button */}
                                             <button
                                                 onClick={() => handleEditClick(p)}
                                                 className="flex items-center gap-1 bg-amber-900 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-amber-800 transition"
@@ -201,7 +212,7 @@ export default function AdminProducts() {
                                                 <Edit2 className="w-3.5 h-3.5" /> Edit
                                             </button>
 
-                                            {/* 🔴 Delete Button */}
+                                            {/* Delete Button */}
                                             <button
                                                 onClick={() => handleDelete(p.id)}
                                                 className="flex items-center gap-1 bg-rose-600 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-rose-700 transition"
@@ -218,7 +229,7 @@ export default function AdminProducts() {
                 </table>
             </div>
 
-            {/* 🟢 ADD PRODUCT MODAL */}
+            {/* ADD PRODUCT MODAL */}
             {showAddModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
                     <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 border border-amber-200 shadow-2xl relative">
@@ -307,7 +318,6 @@ export default function AdminProducts() {
                                 />
                             </div>
 
-                            {/* 📝 Description Field */}
                             <div>
                                 <label className="text-xs font-bold text-slate-600">Description</label>
                                 <textarea
