@@ -7,7 +7,8 @@ import {
   ShieldCheck, 
   ShoppingBag, 
   TrendingUp, 
-  MessageSquare 
+  MessageSquare,
+  PackageCheck
 } from 'lucide-react';
 
 export default function Navbar({ cartCount }) {
@@ -31,66 +32,134 @@ export default function Navbar({ cartCount }) {
   return (
     <nav className="bg-amber-900 text-amber-100 shadow-md sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Store Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        
+        {/* Store Logo & Branding */}
+        <Link to={isAdmin ? "/admin" : "/"} className="flex items-center gap-2">
           <Store className="w-7 h-7 text-amber-400" />
-          <h1 className="text-xl font-bold text-amber-100">Quetta Dry Fruits</h1>
+          <div>
+            <h1 className="text-xl font-bold text-amber-100 leading-none">Quetta Dry Fruits</h1>
+            {isAdmin && (
+              <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
+                Admin Control Panel
+              </span>
+            )}
+          </div>
         </Link>
 
         {/* Dynamic Navigation Links */}
         <div className="flex gap-6 items-center font-medium text-sm">
-          {/* General Navigation Links */}
-          <Link to="/" className="hover:text-amber-300">Home</Link>
-          <Link to="/products" className="hover:text-amber-300">Products Catalog</Link>
-          <Link to="/contact" className="hover:text-amber-300">Contact</Link>
-
-          {/* Admin Section (Rendered when Admin Token exists) */}
+          
+          {/* ================= ADMIN VIEW ================= */}
           {isAdmin ? (
-            <div className="flex items-center gap-4 border-l border-amber-700/60 pl-4">
-              <Link to="/admin/orders" className="hover:text-amber-300 flex items-center gap-1 text-amber-200">
-                <ShoppingBag className="w-4 h-4" /> Orders
+            <div className="flex items-center gap-5">
+              
+              <Link 
+                to="/products" 
+                className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
+                  location.pathname === '/products' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                <PackageCheck className="w-4 h-4 text-amber-400" /> Catalog Preview
               </Link>
 
-              <Link to="/admin/profit" className="hover:text-amber-300 flex items-center gap-1 text-amber-200">
-                <TrendingUp className="w-4 h-4" /> Profit
+              <Link 
+                to="/admin/orders" 
+                className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
+                  location.pathname === '/admin/orders' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                <ShoppingBag className="w-4 h-4 text-amber-400" /> Orders
               </Link>
 
-              <Link to="/admin/feedback" className="hover:text-amber-300 flex items-center gap-1 text-amber-200">
-                <MessageSquare className="w-4 h-4" /> Feedback
+              <Link 
+                to="/admin/profit" 
+                className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
+                  location.pathname === '/admin/profit' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                <TrendingUp className="w-4 h-4 text-amber-400" /> Profit & Analytics
               </Link>
 
-              <div className="flex items-center gap-3 bg-amber-950 px-3 py-1.5 rounded-lg border border-amber-700">
-                <Link to="/admin" className="text-amber-300 font-bold flex items-center gap-1">
+              <Link 
+                to="/admin/feedback" 
+                className={`hover:text-amber-300 flex items-center gap-1.5 transition ${
+                  location.pathname === '/admin/feedback' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                <MessageSquare className="w-4 h-4 text-amber-400" /> Feedback
+              </Link>
+
+              {/* Admin Badge & Logout */}
+              <div className="flex items-center gap-3 bg-amber-950 px-3 py-1.5 rounded-xl border border-amber-700/80 shadow-inner">
+                <Link to="/admin" className="text-amber-300 font-bold flex items-center gap-1 text-xs">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" /> Dashboard
                 </Link>
+                
                 <button 
                   onClick={handleLogout} 
-                  title="Logout" 
-                  className="text-rose-400 hover:text-rose-300 ml-1 transition"
+                  title="Logout Admin" 
+                  className="text-rose-400 hover:text-rose-300 transition pl-1 border-l border-amber-800"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
+
             </div>
           ) : (
-            <Link to="/admin/login" className="text-amber-300 hover:text-amber-200 font-medium">
-              Admin Login
-            </Link>
+            /* ================= CUSTOMER VIEW ================= */
+            <div className="flex items-center gap-6">
+              
+              <Link 
+                to="/" 
+                className={`hover:text-amber-300 transition ${
+                  location.pathname === '/' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                Home
+              </Link>
+
+              <Link 
+                to="/products" 
+                className={`hover:text-amber-300 transition ${
+                  location.pathname.startsWith('/products') ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                Products Catalog
+              </Link>
+
+              <Link 
+                to="/contact" 
+                className={`hover:text-amber-300 transition ${
+                  location.pathname === '/contact' ? 'text-amber-300 font-bold' : ''
+                }`}
+              >
+                Contact Us
+              </Link>
+
+              <Link 
+                to="/admin/login" 
+                className="text-amber-300/80 hover:text-amber-200 text-xs font-semibold bg-amber-950/60 px-2.5 py-1 rounded-md border border-amber-800"
+              >
+                Admin Portal
+              </Link>
+
+              {/* Customer Shopping Cart Badge */}
+              <Link 
+                to="/cart" 
+                className="relative bg-amber-800 hover:bg-amber-700 p-2 rounded-full transition flex items-center justify-center shadow-sm"
+                aria-label="Shopping Cart"
+              >
+                <ShoppingCart className="w-5 h-5 text-amber-200" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[11px] font-black rounded-full w-5 h-5 flex items-center justify-center shadow-md animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+
+            </div>
           )}
 
-          {/* Cart Icon (Always Available) */}
-          <Link 
-            to="/cart" 
-            className="relative bg-amber-800 hover:bg-amber-700 p-2 rounded-full transition flex items-center justify-center"
-            aria-label="Shopping Cart"
-          >
-            <ShoppingCart className="w-5 h-5 text-amber-200" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
-                {cartCount}
-              </span>
-            )}
-          </Link>
         </div>
       </div>
     </nav>
