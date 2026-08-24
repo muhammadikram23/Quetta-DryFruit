@@ -53,7 +53,7 @@ export default function Navbar({ cartCount }) {
           </div>
         </Link>
 
-        {/* ================= DESKTOP NAVIGATION (Hidden on Mobile) ================= */}
+        {/* DESKTOP NAVIGATION (Hidden on Mobile) */}
         <div className="hidden md:flex gap-6 items-center font-medium text-sm">
 
           {/* ADMIN DESKTOP VIEW */}
@@ -173,7 +173,7 @@ export default function Navbar({ cartCount }) {
 
         </div>
 
-        {/* ================= MOBILE CONTROLS (Cart + Hamburger) ================= */}
+        {/* MOBILE CONTROLS (Cart + Hamburger) */}
         <div className="flex md:hidden items-center gap-3">
           {/* Mobile Cart Icon */}
           {!isAdmin && (
@@ -203,7 +203,7 @@ export default function Navbar({ cartCount }) {
 
       </div>
 
-      {/* ================= MOBILE MENU DRAWER ================= */}
+      {/*MOBILE MENU DRAWER */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-amber-950 border-t border-amber-800/60 px-4 pt-3 pb-5 space-y-3 font-medium text-sm transition-all duration-200">
           {isAdmin ? (

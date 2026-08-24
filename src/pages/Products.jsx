@@ -13,6 +13,7 @@ export default function Products({ addToCart }) {
   // Check if the user is currently an Admin
   const isAdmin = localStorage.getItem('adminToken');
 
+  // Fetch products from the API on component mount
   useEffect(() => {
     API.get('/api/products')
       .then(res => setProducts(res.data))
@@ -43,6 +44,7 @@ export default function Products({ addToCart }) {
     }));
   };
 
+  // Render the product catalog with admin and customer controls
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header Banner */}
@@ -167,7 +169,7 @@ export default function Products({ addToCart }) {
 
               {/* ACTION BUTTONS (Differentiated for Admin vs Customer) */}
               <div className="p-4 pt-0 space-y-2">
-                {/* 👁️ Separate View Details Button */}
+                {/*Separate View Details Button */}
                 <Link
                   to={`/products/${p.id}`}
                   className="w-full bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 transition border border-amber-300"

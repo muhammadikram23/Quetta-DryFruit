@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import API from '../api'; // Central Axios Instance
 import { ShoppingCart, Trash2, CheckCircle, Printer } from 'lucide-react';
 
+// Cart Page: Displays selected items, allows checkout, and generates a printable invoice
 export default function Cart({ cart, setCart }) {
   const [customer, setCustomer] = useState({ name: '', phone: '', address: '' });
   const [generatedBill, setGeneratedBill] = useState(null);
@@ -12,6 +13,7 @@ export default function Cart({ cart, setCart }) {
     setCart(cart.filter(item => item.product_id !== id));
   };
 
+  // Handle checkout and order submission
   const handleCheckout = async (e) => {
     e.preventDefault();
     if (cart.length === 0) return alert('Your cart is empty!');
@@ -42,6 +44,7 @@ export default function Cart({ cart, setCart }) {
     }
   };
 
+  // Render the cart page with itemization, delivery form, and printable invoice modal
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold text-amber-950 mb-6 flex items-center gap-2">

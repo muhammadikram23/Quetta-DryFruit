@@ -69,10 +69,10 @@ const ChatBotWidget = () => {
   };
 
   return (
-    /* 🟢 Shifted from bottom-left to bottom-right corner */
+    /* Shifted from bottom-left to bottom-right corner */
     <div className="fixed bottom-6 right-6 z-50 font-sans">
       
-      {/* 🔴 Eye-Catching Floating Toggle Button (Bottom Right) */}
+      {/* Eye-Catching Floating Toggle Button (Bottom Right) */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -92,7 +92,7 @@ const ChatBotWidget = () => {
         </button>
       )}
 
-      {/* 🟡 Chatbot Window (Anchored Bottom Right) */}
+      {/*Chatbot Window (Anchored Bottom Right) */}
       {isOpen && (
         <div className="w-[350px] sm:w-[390px] h-[530px] bg-white rounded-3xl shadow-2xl flex flex-col border border-amber-300/60 overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5">
           

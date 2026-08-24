@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import API from '../api'; // Central Axios Instance
 import { Calendar, TrendingUp, DollarSign, Package, RefreshCw } from 'lucide-react';
 
+// Admin Profit Page: Displays profit analytics for delivered orders with dynamic timeframe filtering
 export default function AdminProfit() {
   const [data, setData] = useState({ summary: {}, products: [] });
   const [timeframe, setTimeframe] = useState('all'); // 'all', 'daily', 'weekly', 'monthly'
@@ -29,6 +30,7 @@ export default function AdminProfit() {
   const summary = data.summary || {};
   const products = data.products || [];
 
+  // Render the profit analytics dashboard with summary cards and product breakdown table
   return (
     <div className="p-3 sm:p-6 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       

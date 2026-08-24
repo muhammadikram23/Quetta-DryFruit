@@ -24,32 +24,22 @@ export default function ProductDetail({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  /* =======================================================
-     PRODUCT STATE
-  ======================================================= */
+  /* PRODUCT STATE */
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* =======================================================
-     PRODUCT OPTIONS
-  ======================================================= */
+  /* PRODUCT OPTIONS */
   const [selectedWeight, setSelectedWeight] = useState(1);
   const [customWeight, setCustomWeight] = useState(1);
 
-  /* =======================================================
-     BUTTON STATE
-  ======================================================= */
+  /* BUTTON STATE */
   const [isAdding, setIsAdding] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
 
-  /* =======================================================
-     ADMIN CHECK
-  ======================================================= */
+  /* ADMIN CHECK */
   const isAdmin = Boolean(localStorage.getItem("adminToken"));
 
-  /* =======================================================
-     FETCH PRODUCT DATA
-  ======================================================= */
+  /*FETCH PRODUCT DATA */
   useEffect(() => {
     setLoading(true);
 
@@ -64,9 +54,7 @@ export default function ProductDetail({ addToCart }) {
       });
   }, [id]);
 
-  /* =======================================================
-     PRODUCT DATA CALCULATIONS
-  ======================================================= */
+  /* PRODUCT DATA CALCULATIONS */
   const stockKg = Number(product?.stock_kg || 0);
   const pricePerKg = Number(product?.price_per_kg || 0);
 
@@ -78,9 +66,7 @@ export default function ProductDetail({ addToCart }) {
   const totalPrice = pricePerKg * currentWeight;
   const isOutOfStock = stockKg <= 0;
 
-  /* =======================================================
-     WEIGHT HANDLERS
-  ======================================================= */
+  /* WEIGHT HANDLERS */
   const handleWeightChange = (weight) => {
     setSelectedWeight(weight);
     if (weight !== "custom") {
@@ -88,6 +74,7 @@ export default function ProductDetail({ addToCart }) {
     }
   };
 
+  // Increase/Decrease Custom Weight by 0.25 kg Steps
   const increaseWeight = () => {
     const current =
       selectedWeight === "custom"
@@ -110,9 +97,7 @@ export default function ProductDetail({ addToCart }) {
     setCustomWeight(Number(next.toFixed(2)));
   };
 
-  /* =======================================================
-     ADD TO CART
-  ======================================================= */
+  /* ADD TO CART */
   const handleAddToCart = async () => {
     if (!product || isOutOfStock) return;
 
@@ -149,9 +134,7 @@ export default function ProductDetail({ addToCart }) {
     }
   };
 
-  /* =======================================================
-     BUY NOW (FIXED FOR 500 INTERNAL ERROR & DIRECT REDIRECT)
-  ======================================================= */
+  /* BUY NOW (FIXED FOR 500 INTERNAL ERROR & DIRECT REDIRECT) */
   const handleBuyNow = async () => {
     if (!product || isOutOfStock) return;
 
@@ -190,9 +173,7 @@ export default function ProductDetail({ addToCart }) {
     }
   };
 
-  /* =======================================================
-     LOADING STATE
-  ======================================================= */
+  /* LOADING STATE */
   if (loading) {
     return (
       <div className="min-h-screen bg-[#faf8f3] flex items-center justify-center">
@@ -206,9 +187,7 @@ export default function ProductDetail({ addToCart }) {
     );
   }
 
-  /* =======================================================
-     PRODUCT NOT FOUND STATE
-  ======================================================= */
+  /* PRODUCT NOT FOUND STATE */
   if (!product) {
     return (
       <div className="min-h-screen bg-[#faf8f3] flex items-center justify-center px-6">
@@ -234,17 +213,13 @@ export default function ProductDetail({ addToCart }) {
     );
   }
 
-  /* =======================================================
-     MAIN PRODUCT UI (COMPACT SINGLE-PAGE FIT)
-  ======================================================= */
+  /* MAIN PRODUCT UI (COMPACT SINGLE-PAGE FIT) */
   return (
     <div className="min-h-[calc(100vh-80px)] bg-[#faf8f3] text-stone-900 flex items-center py-4 sm:py-6">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* =================================================
-              LEFT COLUMN — IMAGE & PRODUCT OVERVIEW (5 COLS)
-          ================================================= */}
+          {/* LEFT COLUMN — IMAGE & PRODUCT OVERVIEW (5 COLS) */}
           <section className="lg:col-span-5 flex flex-col gap-4">
             <div className="relative overflow-hidden rounded-2xl bg-[#eee7d9] shadow-md aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full">
               <img
@@ -299,6 +274,7 @@ export default function ProductDetail({ addToCart }) {
                 </p>
               )}
 
+              // Trust Badges
               <div className="grid grid-cols-3 gap-2 pt-1 border-t border-stone-100">
                 <div className="text-center p-2 rounded-xl bg-stone-50">
                   <ShieldCheck size={18} className="text-emerald-600 mx-auto mb-1" />
@@ -316,9 +292,7 @@ export default function ProductDetail({ addToCart }) {
             </div>
           </section>
 
-          {/* =================================================
-              RIGHT COLUMN — WEIGHT, PRICE & ACTIONS (7 COLS)
-          ================================================= */}
+          {/* RIGHT COLUMN — WEIGHT, PRICE & ACTIONS (7 COLS) */}
           <section className="lg:col-span-7 flex flex-col justify-between space-y-4">
             
             {/* PRICE & STOCK HEADER */}

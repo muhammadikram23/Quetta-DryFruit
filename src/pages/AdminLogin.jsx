@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import API from '../api'; // Use central API instance
 import { Lock } from 'lucide-react';
 
+// Admin Login Page: Allows admin users to log in and access the dashboard
 export default function AdminLogin() {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Handle admin login form submission
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -22,6 +24,7 @@ export default function AdminLogin() {
     }
   };
 
+  // Render the admin login form with error handling
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="bg-white p-8 rounded-2xl shadow-xl border border-amber-100 max-w-md w-full space-y-6">
@@ -35,6 +38,7 @@ export default function AdminLogin() {
 
         {error && <div className="bg-rose-50 text-rose-700 p-3 rounded-lg text-sm border border-rose-200 text-center">{error}</div>}
 
+        // Admin login form with username and password fields
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>

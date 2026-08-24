@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../api'; // Use central API instance
 import { Edit2, Save, X, Package, Plus, Trash2, Eye } from 'lucide-react';
 
+// Admin Products Page: Allows admin users to manage products, including editing, deleting, and adding new products
 export default function AdminProducts() {
     const [products, setProducts] = useState([]);
     const [editingId, setEditingId] = useState(null);
@@ -28,12 +29,14 @@ export default function AdminProducts() {
         description: ''
     });
 
+    // Fetch products from the API
     const fetchProducts = () => {
         API.get('/api/products')
             .then(res => setProducts(res.data))
             .catch(err => console.error('Error loading products:', err));
     };
 
+    // Fetch products on component mount
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -89,6 +92,7 @@ export default function AdminProducts() {
             .catch(err => console.error('Error adding product:', err));
     };
 
+    // Render the admin products management interface
     return (
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-6">
             
@@ -249,6 +253,7 @@ export default function AdminProducts() {
                             </button>
                         </div>
 
+                        // Add Product Form
                         <form onSubmit={handleAddProductSubmit} className="space-y-3">
                             <div>
                                 <label className="text-xs font-bold text-slate-600">Product Title</label>

@@ -3,6 +3,7 @@ import API from '../api'; // Use central API instance
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ShoppingBag } from 'lucide-react';
 
+// Admin Orders Page: Displays all customer orders for admin management
 export default function AdminOrders() {
     const [orders, setOrders] = useState([]);
 
@@ -26,6 +27,7 @@ export default function AdminOrders() {
             .catch(err => console.error('Error updating status:', err));
     };
 
+    // Render the orders table with status update functionality
     return (
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-6">
             

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import API from '../api'; // Use central API instance
 import { MessageSquare, Star, Trash2, Mail, User, Calendar } from 'lucide-react';
 
+// Admin Feedback Page: Displays customer feedback and reviews for admin management
 export default function AdminFeedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch feedbacks from the backend API on component mount
   useEffect(() => {
     fetchFeedbacks();
   }, []);
 
+  // Fetch feedbacks from the backend API
   const fetchFeedbacks = async () => {
     try {
       // Relative path: /api/admin/feedback
@@ -24,6 +27,7 @@ export default function AdminFeedback() {
     }
   };
 
+  // Handle deletion of a feedback entry
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this feedback entry?')) return;
     try {
@@ -37,6 +41,7 @@ export default function AdminFeedback() {
     }
   };
 
+  // Render the feedback management interface
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-6">
       

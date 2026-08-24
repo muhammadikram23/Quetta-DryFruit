@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import API from '../api'; // Central Axios Instance
 import { MapPin, Phone, Mail, Send, CheckCircle2, MessageSquare } from 'lucide-react';
 
+// Contact Page: Displays store location, contact info, and a feedback form for users to submit reviews or inquiries
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -12,6 +13,7 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Handle form submission to send feedback to the backend API
   const handleSubmit = (e) => {
     e.preventDefault(); // Stop standard form refresh
     e.stopPropagation();
@@ -37,6 +39,7 @@ export default function Contact() {
       });
   };
 
+  // Render the contact page with store info and feedback form
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 space-y-10">
       
@@ -116,7 +119,8 @@ export default function Contact() {
                 />
               </div>
             </div>
-
+            
+            // Store Rating Dropdown
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Store Rating</label>
               <select 
@@ -132,6 +136,7 @@ export default function Contact() {
               </select>
             </div>
 
+            // Feedback Message Textarea
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Your Message / Feedback</label>
               <textarea 
@@ -144,6 +149,7 @@ export default function Contact() {
               />
             </div>
 
+            // Submit Button with Loading State
             <button 
               type="submit" 
               disabled={loading}

@@ -131,6 +131,7 @@ export default function Home() {
     // Carousel Auto-slide State & Logic
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    // Auto-slide every 4.5 seconds
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
@@ -141,6 +142,7 @@ export default function Home() {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
 
+    // Render the Home page with hero banner, heritage section, gallery carousel, and detailed fruit cards
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 space-y-16">
 
@@ -298,6 +300,7 @@ export default function Home() {
                     </p>
                 </div>
 
+                // Detailed Fruit Cards with Live Rates
                 <div className="space-y-10">
                     {detailedFruits.map((fruit, index) => {
                         const isEven = index % 2 === 0;

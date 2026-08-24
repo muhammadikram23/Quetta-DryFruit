@@ -16,9 +16,7 @@ export default function About() {
     <div className="min-h-screen bg-[#faf8f3] text-stone-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-12">
         
-        {/* =======================================================
-            HERO BANNER
-        ======================================================= */}
+        {/* HERO BANNER*/}
         <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-900 via-amber-950 to-stone-900 text-white p-8 sm:p-12 lg:p-16 shadow-xl">
           <div className="relative z-10 max-w-2xl space-y-4">
             <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 border border-amber-500/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-300 backdrop-blur-md">
@@ -44,9 +42,7 @@ export default function About() {
           <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none" />
         </section>
 
-        {/* =======================================================
-            OUR MISSION & VISION
-        ======================================================= */}
+        {/* OUR MISSION & VISION */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
           <div className="bg-white p-8 rounded-3xl border border-stone-200/80 shadow-sm space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-900">
@@ -85,9 +81,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* =======================================================
-            WHY CHOOSE US (STATS / BADGES)
-        ======================================================= */}
+        {/* WHY CHOOSE US (STATS / BADGES) */}
         <section className="bg-amber-900/5 rounded-3xl p-8 border border-amber-900/10">
           <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
             <h2 className="text-2xl sm:text-3xl font-black text-stone-900">

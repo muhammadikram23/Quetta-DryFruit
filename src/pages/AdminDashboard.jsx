@@ -8,6 +8,7 @@ export default function AdminDashboard() {
   const [lowStockItems, setLowStockItems] = useState([]);
   const [orders, setOrders] = useState([]);
 
+  // Fetch products, low stock items, and orders on component mount
   useEffect(() => {
     API.get('/api/products')
       .then(res => setProducts(res.data))
@@ -17,7 +18,7 @@ export default function AdminDashboard() {
       .then(res => setLowStockItems(res.data.low_stock_items))
       .catch(err => console.error('Error fetching low stock items:', err));
 
-    // FIXED: Changed /api/orders to /api/admin/orders
+    //  fetch /api/admin/orders
     API.get('/api/admin/orders')
       .then(res => {
         // Handle array response or object wrapper if applicable
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
       .catch(err => console.error('Error fetching admin orders:', err));
   }, []);
 
+  // Render the dashboard with product, low stock, and order information
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
       <h2 className="text-3xl font-extrabold text-slate-800">Store Management Overview</h2>
@@ -66,6 +68,7 @@ export default function AdminDashboard() {
           <ArrowRight className="w-6 h-6 text-amber-800" />
         </Link>
 
+        // Quick Navigation Metrics
         <Link to="/admin/orders" className="bg-white p-6 rounded-2xl shadow border border-amber-100 hover:shadow-lg transition flex justify-between items-center">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-emerald-100 text-emerald-900 rounded-xl"><ShoppingBag className="w-8 h-8" /></div>
