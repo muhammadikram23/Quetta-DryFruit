@@ -4,19 +4,16 @@ An e-commerce platform built to bring direct, unadulterated organic dry
 fruits from Quetta's historic wholesale markets (Suraj Ganj Bazaar &
 Kandahari Bazaar) directly to consumers nationwide.
 
-[![Live
-Demo](https://img.shields.io/badge/Live_Demo-quetta--dry--fruit.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)]([quetta-dry-fruit.vercel.app](https://quetta-dry-fruit.vercel.app/))
+[![Live Demo](https://img.shields.io/badge/Live_Demo-quetta--dry--fruit.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)](https://quetta-dry-fruit.vercel.app/)
+
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind
-CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Railway](https://img.shields.io/badge/Railway-000000?style=for-the-badge&logo=railway&logoColor=white)](https://railway.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
-:::
-
 ------------------------------------------------------------------------
 
 ## 📚 Table of Contents
