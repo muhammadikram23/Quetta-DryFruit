@@ -5,7 +5,7 @@ fruits from Quetta's historic wholesale markets (Suraj Ganj Bazaar &
 Kandahari Bazaar) directly to consumers nationwide.
 
 [![Live
-Demo](https://img.shields.io/badge/Live_Demo-quetta--dry--fruit.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)](https://quetta-dry-fruit.vercel.app)
+Demo](https://img.shields.io/badge/Live_Demo-quetta--dry--fruit.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)](quetta-dry-fruit.vercel.app)
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind
@@ -568,7 +568,7 @@ Railway MySQL
 
 **Live Frontend:**
 
-https://quetta-dry-fruit.vercel.app
+quetta-dry-fruit.vercel.app
 
 ### 🚀 Production API
 
@@ -624,7 +624,7 @@ trusted frontend domains:
 ``` javascript
 app.use(
   cors({
-    origin: "https://quetta-dry-fruit.vercel.app"
+    origin: "quetta-dry-fruit.vercel.app"
   })
 );
 ```
@@ -763,7 +763,7 @@ cloud deployment, and full-stack application architecture.
   ⚙️ Backend Repository               [Quetta Dry Fruits
                                       Backend](https://github.com/muhammadikram23/Quetta-DryFruit-Backend)
 
-  🌐 Live Application                 [quetta-dry-fruit.vercel.app](https://quetta-dry-fruit.vercel.app)
+  🌐 Live Application                 [quetta-dry-fruit.vercel.app](quetta-dry-fruit.vercel.app)
 
   🚀 Live Backend API                 [quetta-dry-fruit-backend.vercel.app](https://quetta-dry-fruit-backend.vercel.app)
 
