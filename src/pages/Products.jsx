@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import API from '../api'; // Central Axios Instance
+import API from '../api'; {/*Central Axios Instance*/}
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Edit, ShieldCheck, Eye, AlertCircle, Info } from 'lucide-react';
 
 export default function Products({ addToCart }) {
   const [products, setProducts] = useState([]);
   
-  // Weights structure: { [productId]: { type: 'preset' | 'custom', value: number, customInput: string } }
+  {/*Weights structure: { [productId]: { type: 'preset' | 'custom', value: number, customInput: string } }*/}
   const [productWeights, setProductWeights] = useState({});
   const navigate = useNavigate();
 
-  // Check if the user is currently an Admin
+  {/*Check if the user is currently an Admin*/}
   const isAdmin = localStorage.getItem('adminToken');
 
-  // Fetch products from the API on component mount
+  {/*Fetch products from the API on component mount*/}
   useEffect(() => {
     API.get('/api/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error(err));
   }, []);
 
-  // Handle dropdown changes for weight
+  {/*Handle dropdown changes for weight*/}
   const handleWeightChange = (productId, val) => {
     if (val === 'custom') {
       setProductWeights(prev => ({
@@ -35,7 +35,7 @@ export default function Products({ addToCart }) {
     }
   };
 
-  // Handle manual input typing for custom weight
+  {/*Handle manual input typing for custom weight*/}
   const handleCustomInputChange = (productId, inputValue) => {
     const parsedVal = parseFloat(inputValue) || 0;
     setProductWeights(prev => ({
@@ -44,7 +44,7 @@ export default function Products({ addToCart }) {
     }));
   };
 
-  // Render the product catalog with admin and customer controls
+  {/*Render the product catalog with admin and customer controls*/}
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header Banner */}
@@ -68,12 +68,12 @@ export default function Products({ addToCart }) {
       {/* Product Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map(p => {
-          // Weight selection data for current product
+          {/*Weight selection data for current product*/}
           const weightState = productWeights[p.id] || { type: 'preset', value: 1, customInput: '' };
           const selectedWeightKg = weightState.value;
           const isCustom = weightState.type === 'custom';
 
-          // Validation checks
+          {/*Validation checks*/}
           const isExceedingStock = selectedWeightKg > Number(p.stock_kg);
           const isInvalidWeight = selectedWeightKg <= 0;
 

@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 export default function Home() {
-    // Static presentation data
+    {/*Static presentation data*/}
     const initialFruitsData = [
         {
             id: 'chilgoza',
@@ -54,7 +54,7 @@ export default function Home() {
         initialFruitsData.map(f => ({ ...f, price: f.defaultPrice }))
     );
 
-    // Carousel slides data
+    {/*Carousel slides data*/}
     const carouselSlides = [
         {
             title: "Chilghoza (Pine Nuts)",
@@ -82,7 +82,7 @@ export default function Home() {
         }
     ];
 
-    // Fetch Live Product Prices from backend API
+    {/*Fetch Live Product Prices from backend API*/}
     useEffect(() => {
         const fetchLivePrices = async () => {
             try {
@@ -106,7 +106,7 @@ export default function Home() {
                         });
 
                         if (matchedProduct) {
-                            // Extract price_per_kg (or fall back to price)
+                            {/*Extract price_per_kg (or fall back to price)*/}
                             const rawPrice = matchedProduct.price_per_kg ?? matchedProduct.price;
                             const numPrice = parseFloat(rawPrice);
 
@@ -128,10 +128,10 @@ export default function Home() {
         fetchLivePrices();
     }, []);
 
-    // Carousel Auto-slide State & Logic
+    {/*Carousel Auto-slide State & Logic*/}
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    // Auto-slide every 4.5 seconds
+    {/*Auto-slide every 4.5 seconds*/}
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
@@ -142,7 +142,7 @@ export default function Home() {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
 
-    // Render the Home page with hero banner, heritage section, gallery carousel, and detailed fruit cards
+    {/*Render the Home page with hero banner, heritage section, gallery carousel, and detailed fruit cards*/}
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 space-y-16">
 
@@ -300,7 +300,7 @@ export default function Home() {
                     </p>
                 </div>
 
-                // Detailed Fruit Cards with Live Rates
+                {/*Detailed Fruit Cards with Live Rates*/}
                 <div className="space-y-10">
                     {detailedFruits.map((fruit, index) => {
                         const isEven = index % 2 === 0;

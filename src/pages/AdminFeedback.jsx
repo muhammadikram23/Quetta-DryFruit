@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import API from '../api'; // Use central API instance
+import API from '../api'; {/*Use central API instance*/}
 import { MessageSquare, Star, Trash2, Mail, User, Calendar } from 'lucide-react';
 
-// Admin Feedback Page: Displays customer feedback and reviews for admin management
+{/*Admin Feedback Page: Displays customer feedback and reviews for admin management*/}
 export default function AdminFeedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch feedbacks from the backend API on component mount
+  {/*Fetch feedbacks from the backend API on component mount*/}
   useEffect(() => {
     fetchFeedbacks();
   }, []);
 
-  // Fetch feedbacks from the backend API
+  {/*Fetch feedbacks from the backend API*/}
   const fetchFeedbacks = async () => {
     try {
-      // Relative path: /api/admin/feedback
+      {/*Relative path: /api/admin/feedback*/}
       const res = await API.get('/api/admin/feedback', {
         headers: { Authorization: localStorage.getItem('adminToken') }
       });
@@ -27,11 +27,11 @@ export default function AdminFeedback() {
     }
   };
 
-  // Handle deletion of a feedback entry
+  {/*Handle deletion of a feedback entry*/}
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this feedback entry?')) return;
     try {
-      // Relative path: /api/admin/feedback/:id
+      {/*Relative path: /api/admin/feedback/:id*/}
       await API.delete(`/api/admin/feedback/${id}`, {
         headers: { Authorization: localStorage.getItem('adminToken') }
       });
@@ -41,7 +41,7 @@ export default function AdminFeedback() {
     }
   };
 
-  // Render the feedback management interface
+  {/*Render the feedback management interface*/}
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-6">
       

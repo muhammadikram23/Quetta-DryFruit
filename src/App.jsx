@@ -15,18 +15,18 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
-import AdminFeedback from './pages/AdminFeedback';
+import AdminFeedback from './pages/adminFeedback';
 import AdminProfit from './pages/AdminProfit';
 
 export default function App() {
   const [cart, setCart] = useState([]);
 
-  // Handle adding products to the cart with weight and subtotal calculations
+  {/*Handle adding products to the cart with weight and subtotal calculations*/}
   const handleAddToCart = (product, weightKg) => {
     const existingIndex = cart.findIndex(item => item.product_id === product.id);
     const subtotal = weightKg * product.price_per_kg;
 
-    // If the product already exists in the cart, update its weight and subtotal; otherwise, add it as a new item
+    {/*If the product already exists in the cart, update its weight and subtotal; otherwise, add it as a new item*/}
     if (existingIndex > -1) {
       const newCart = [...cart];
       newCart[existingIndex].weight_kg += weightKg;
@@ -43,7 +43,7 @@ export default function App() {
     }
   };
 
-  // Render the main application with routing for public and admin pages, including a floating AI chatbot widget
+  {/*Render the main application with routing for public and admin pages, including a floating AI chatbot widget*/}
   return (
     <div className="min-h-screen bg-amber-50 text-slate-800 font-sans relative">
       <Navbar cartCount={cart.length} />

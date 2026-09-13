@@ -16,7 +16,7 @@ import {
 
 import API from "../api.js";
 
-// Fallback Image
+{/*Fallback Image*/}
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=85";
 
@@ -74,7 +74,7 @@ export default function ProductDetail({ addToCart }) {
     }
   };
 
-  // Increase/Decrease Custom Weight by 0.25 kg Steps
+  {/*Increase/Decrease Custom Weight by 0.25 kg Steps*/}
   const increaseWeight = () => {
     const current =
       selectedWeight === "custom"
@@ -159,7 +159,7 @@ export default function ProductDetail({ addToCart }) {
 
     try {
       if (addToCart) {
-        // execute addToCart without letting server exceptions block navigation
+        {/*execute addToCart without letting server exceptions block navigation*/}
         await Promise.resolve(addToCart(cartItem)).catch((err) => {
           console.warn("Cart sync notice (proceeding anyway):", err);
         });
@@ -168,7 +168,7 @@ export default function ProductDetail({ addToCart }) {
       console.error("Buy now background warning:", error);
     } finally {
       setIsBuying(false);
-      // Direct navigation to Cart page so customer can enter details & complete order
+      {/*Direct navigation to Cart page so customer can enter details & complete order*/}
       navigate("/cart");
     }
   };
@@ -274,7 +274,7 @@ export default function ProductDetail({ addToCart }) {
                 </p>
               )}
 
-              // Trust Badges
+              {/*Trust Badges*/}
               <div className="grid grid-cols-3 gap-2 pt-1 border-t border-stone-100">
                 <div className="text-center p-2 rounded-xl bg-stone-50">
                   <ShieldCheck size={18} className="text-emerald-600 mx-auto mb-1" />

@@ -17,13 +17,13 @@ export default function Navbar({ cartCount }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Mobile menu open/close state
+  {/*Mobile menu open/close state*/}
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Dynamically track admin authentication state
+  {/*Dynamically track admin authentication state*/}
   const [isAdmin, setIsAdmin] = useState(() => !!localStorage.getItem('adminToken'));
 
-  // Re-evaluate admin token whenever route changes and close mobile menu
+  {/*Re-evaluate admin token whenever route changes and close mobile menu*/}
   useEffect(() => {
     setIsAdmin(!!localStorage.getItem('adminToken'));
     setMobileMenuOpen(false);

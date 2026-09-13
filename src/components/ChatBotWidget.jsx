@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, X, Sparkles, Loader2, MessageSquareText } from 'lucide-react';
 import axios from 'axios';
 
-// Vite environment variable syntax
-// Updated to match VITE_API_BASE_URL from your .env file
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api`;
 
 const ChatBotWidget = () => {
@@ -18,7 +16,7 @@ const ChatBotWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to latest message
+   { /* Auto-scroll to latest message */}
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -36,13 +34,13 @@ const ChatBotWidget = () => {
     const userMessage = input.trim();
     setInput('');
 
-    // Append User Message locally
+    {/* Append User Message locally */}
     const updatedMessages = [...messages, { role: 'user', text: userMessage }];
     setMessages(updatedMessages);
     setIsLoading(true);
 
     try {
-      // API call to Express backend
+      {/* API call to Express backend */}
       const response = await axios.post(`${API_BASE_URL}/chat`, {
         message: userMessage,
         conversationHistory: updatedMessages.slice(0, -1)
