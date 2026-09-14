@@ -266,6 +266,17 @@ app.put('/api/admin/orders/:id/status', async (req, res) => {
 // 11. GET Profit Analytics
 app.get('/api/admin/analytics/profit-details', async (req, res) => {
   try {
+    const timeframe = req.query.timeframe || 'all';
+
+    let dateFilter = '';
+    
+    if (timeframe === 'daily') {
+      dateFilter = "AND DATE(o.created_at) = CURDATE()";
+    } else if (timeframe === 'weekly') {
+      dateFilter = "AND YEARWEEK(o.created_at, 1) = YEARWEEK(CURDATE(), 1)";
+    } else if (timeframe === 'monthly') {
+      dateFilter = "AND YEAR(o.created_at) = YEAR(CURDATE()) AND MONTH(o.created_at) = MONTH(CURDATE())";
+    }
     const summaryQuery = `
       SELECT 
         COALESCE(SUM(CASE WHEN DATE(o.created_at) = CURDATE() THEN oi.subtotal ELSE 0 END), 0) AS daily_revenue,
@@ -277,6 +288,8 @@ app.get('/api/admin/analytics/profit-details', async (req, res) => {
         COALESCE(SUM(CASE WHEN YEAR(o.created_at) = YEAR(CURDATE()) AND MONTH(o.created_at) = MONTH(CURDATE()) THEN oi.subtotal ELSE 0 END), 0) AS monthly_revenue,
         COALESCE(SUM(CASE WHEN YEAR(o.created_at) = YEAR(CURDATE()) AND MONTH(o.created_at) = MONTH(CURDATE()) THEN (oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))) ELSE 0 END), 0) AS monthly_profit,
         
+        COALESCE(SUM(oi.subtotal), 0) AS lifetime_revenue,
+        COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS lifetime_profit,
         COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS total_lifetime_profit
       FROM order_items oi
       JOIN orders o ON oi.order_id = o.id
@@ -291,15 +304,12 @@ app.get('/api/admin/analytics/profit-details', async (req, res) => {
         p.category,
         COALESCE(SUM(oi.weight_kg), 0) AS total_kg_sold,
         COALESCE(SUM(oi.subtotal), 0) AS total_revenue,
-        COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS product_net_profit,
-        
-        COALESCE(SUM(CASE WHEN DATE(o.created_at) = CURDATE() THEN (oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))) ELSE 0 END), 0) AS daily_profit,
-        COALESCE(SUM(CASE WHEN YEARWEEK(o.created_at, 1) = YEARWEEK(CURDATE(), 1) THEN (oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))) ELSE 0 END), 0) AS weekly_profit,
-        COALESCE(SUM(CASE WHEN YEAR(o.created_at) = YEAR(CURDATE()) AND MONTH(o.created_at) = MONTH(CURDATE()) THEN (oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))) ELSE 0 END), 0) AS monthly_profit
+        COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS product_net_profit
       FROM products p
       INNER JOIN order_items oi ON p.id = oi.product_id
       INNER JOIN orders o ON oi.order_id = o.id
-      WHERE o.status = 'Delivered'
+      WHERE o.status = 'Delivered' 
+      ${dateFilter}
       GROUP BY p.id, p.title, p.category
       ORDER BY product_net_profit DESC
     `;
@@ -311,6 +321,37 @@ app.get('/api/admin/analytics/profit-details', async (req, res) => {
   } catch (err) {
     console.error('Profit Analytics Error:', err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// 12. GET Lifetime Profit Analytics
+app.get('/api/admin/analytics/lifetime-profit', async (req, res) => {
+  try {
+    const summaryQuery = `
+      SELECT 
+        COALESCE(SUM(oi.subtotal), 0) AS lifetime_revenue,
+        COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS lifetime_profit,
+        COALESCE(SUM(oi.subtotal - (oi.weight_kg * COALESCE(oi.cost_price_per_kg, p.cost_price_per_kg, 0))), 0) AS total_lifetime_profit
+      FROM order_items oi
+      JOIN orders o ON oi.order_id = o.id
+      JOIN products p ON oi.product_id = p.id
+      WHERE o.status = 'Delivered'
+    `;
+
+    const [[result]] = await db.query(summaryQuery);
+    res.json(result || { lifetime_revenue: 0, lifetime_profit: 0, total_lifetime_profit: 0 });
+  } catch (err) {
+    console.error('Lifetime Profit Error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const [results] = await db.query('SELECT * FROM feedback LIMIT 2');
+    res.json({ success: true, message: "Database is fully connected!", data: results });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 
