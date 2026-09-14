@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import API from '../api'; {/*Central Axios Instance*/}
-import { Calendar, TrendingUp, DollarSign, Package, RefreshCw } from 'lucide-react';
+import { Calendar, TrendingUp, DollarSign, Package, RefreshCw, Award } from 'lucide-react';
 
 {/*Admin Profit Page: Displays profit analytics for delivered orders with dynamic timeframe filtering*/}
 export default function AdminProfit() {
   const [data, setData] = useState({ summary: {}, products: [] });
-  const [timeframe, setTimeframe] = useState('all'); {/**/}'all', 'daily', 'weekly', 'monthly'
+  const [timeframe, setTimeframe] = useState('all'); // Options: 'all', 'daily', 'weekly', 'monthly'
   const [loading, setLoading] = useState(false);
 
   {/*Fetch updated profit stats from DB with timeframe parameter*/}
@@ -38,19 +38,19 @@ export default function AdminProfit() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-amber-950">Delivered Profit Analytics</h2>
-          <p className="text-xs text-slate-500 mt-0.5">Real-time daily, weekly, and monthly calculations for delivered orders.</p>
+          <p className="text-xs text-slate-500 mt-0.5">Real-time daily, weekly, monthly, and lifetime calculations for delivered orders.</p>
         </div>
         <button 
           onClick={loadProfitAnalytics} 
           disabled={loading}
-          className="self-start sm:self-auto flex items-center gap-2 bg-amber-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-800 transition active:scale-95 disabled:opacity-50"
+          className="self-start sm:self-auto flex items-center gap-2 bg-amber-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-800 transition active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh Data
         </button>
       </div>
 
       {/* 📊 1. DYNAMIC COMBINED PROFIT CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Today's Delivered Profit */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
           <div>
@@ -84,7 +84,7 @@ export default function AdminProfit() {
         </div>
 
         {/* Monthly Delivered Profit */}
-        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between sm:col-span-2 lg:col-span-1">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-[11px] sm:text-xs font-bold uppercase text-slate-400">This Month's Profit</p>
             <h3 className="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
@@ -96,6 +96,22 @@ export default function AdminProfit() {
           </div>
           <div className="p-3 bg-blue-100 text-blue-800 rounded-xl shrink-0">
             <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />
+          </div>
+        </div>
+
+        {/* Lifetime Delivered Profit */}
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p className="text-[11px] sm:text-xs font-bold uppercase text-slate-400">Lifetime Profit</p>
+            <h3 className="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+              PKR {Number(summary.lifetime_profit || summary.total_lifetime_profit || 0).toLocaleString()}
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              Revenue: PKR {Number(summary.lifetime_revenue || 0).toLocaleString()}
+            </p>
+          </div>
+          <div className="p-3 bg-purple-100 text-purple-800 rounded-xl shrink-0">
+            <Award className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
       </div>

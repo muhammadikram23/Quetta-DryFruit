@@ -34,6 +34,7 @@ export default function ProductDetail({ addToCart }) {
 
   /* BUTTON STATE */
   const [isAdding, setIsAdding] = useState(false);
+  const [addedSuccess, setAddedSuccess] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
 
   /* ADMIN CHECK */
@@ -114,27 +115,22 @@ export default function ProductDetail({ addToCart }) {
     setIsAdding(true);
 
     try {
-      const cartItem = {
-        ...product,
-        quantity: currentWeight,
-        weight: currentWeight,
-        price: totalPrice,
-      };
-
       if (addToCart) {
-        await addToCart(cartItem);
+        await addToCart(product, currentWeight);
       }
 
+      setAddedSuccess(true);
       setTimeout(() => {
         setIsAdding(false);
-      }, 600);
+        setAddedSuccess(false);
+      }, 1200);
     } catch (error) {
       console.error("Add to cart error:", error);
       setIsAdding(false);
     }
   };
 
-  /* BUY NOW (FIXED FOR 500 INTERNAL ERROR & DIRECT REDIRECT) */
+  /* BUY NOW */
   const handleBuyNow = async () => {
     if (!product || isOutOfStock) return;
 
@@ -150,22 +146,14 @@ export default function ProductDetail({ addToCart }) {
 
     setIsBuying(true);
 
-    const cartItem = {
-      ...product,
-      quantity: currentWeight,
-      weight: currentWeight,
-      price: totalPrice,
-    };
-
     try {
       if (addToCart) {
-        {/*execute addToCart without letting server exceptions block navigation*/}
-        await Promise.resolve(addToCart(cartItem)).catch((err) => {
+        await Promise.resolve(addToCart(product, currentWeight)).catch((err) => {
           console.warn("Cart sync notice (proceeding anyway):", err);
         });
       }
     } catch (error) {
-      console.error("Buy now background warning:", error);
+      console.error("Buy now error:", error);
     } finally {
       setIsBuying(false);
       {/*Direct navigation to Cart page so customer can enter details & complete order*/}
@@ -418,22 +406,49 @@ export default function ProductDetail({ addToCart }) {
             <div className="grid sm:grid-cols-2 gap-3">
               <button
                 type="button"
-                disabled={isOutOfStock || isAdding}
+                disabled={isOutOfStock || isAdding || addedSuccess}
                 onClick={handleAddToCart}
-                className="h-12 rounded-xl border-2 border-amber-800 bg-white text-amber-900 font-bold text-sm flex items-center justify-center gap-2 transition hover:bg-amber-50 active:scale-[0.98] disabled:opacity-50"
+                className={`h-12 rounded-xl border-2 font-bold text-sm flex items-center justify-center gap-2 transition active:scale-[0.98] disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed ${
+                  addedSuccess
+                    ? "border-emerald-600 bg-emerald-50 text-emerald-700"
+                    : "border-amber-800 bg-white text-amber-900 hover:bg-amber-50"
+                }`}
               >
-                <ShoppingCart size={18} />
-                {isAdding ? "Adding..." : "Add to Cart"}
+                {addedSuccess ? (
+                  <>
+                    <Check size={18} className="text-emerald-600" />
+                    <span>Added to Cart!</span>
+                  </>
+                ) : isAdding ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-amber-800 border-t-transparent rounded-full animate-spin" />
+                    <span>Adding...</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart size={18} />
+                    <span>Add to Cart</span>
+                  </>
+                )}
               </button>
 
               <button
                 type="button"
                 disabled={isOutOfStock || isBuying}
                 onClick={handleBuyNow}
-                className="h-12 rounded-xl bg-amber-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition hover:bg-amber-900 active:scale-[0.98] disabled:opacity-50"
+                className="h-12 rounded-xl bg-amber-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition hover:bg-amber-900 active:scale-[0.98] disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
               >
-                <Zap size={18} fill="currentColor" />
-                {isBuying ? "Processing..." : "Buy Now"}
+                {isBuying ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={18} fill="currentColor" />
+                    <span>Buy Now</span>
+                  </>
+                )}
               </button>
             </div>
 

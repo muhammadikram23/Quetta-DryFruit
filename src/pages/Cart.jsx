@@ -7,7 +7,7 @@ export default function Cart({ cart, setCart }) {
   const [customer, setCustomer] = useState({ name: '', phone: '', address: '' });
   const [generatedBill, setGeneratedBill] = useState(null);
 
-  const cartTotal = cart.reduce((sum, item) => sum + Number(item.subtotal), 0);
+  const cartTotal = cart.reduce((sum, item) => sum + (Number(item.subtotal) || 0), 0);
 
   const removeFromCart = (id) => {
     setCart(cart.filter(item => item.product_id !== id));
@@ -64,8 +64,8 @@ export default function Cart({ cart, setCart }) {
               <div key={item.product_id} className="flex justify-between items-center bg-amber-50 p-3 rounded-lg border border-amber-200">
                 <div>
                   <h5 className="font-bold text-slate-800">{item.title}</h5>
-                  <p className="text-xs text-slate-600">{item.weight_kg} kg × PKR {item.price_per_kg}</p>
-                  <p className="text-sm font-extrabold text-amber-900 mt-1">PKR {item.subtotal.toLocaleString()}</p>
+                  <p className="text-xs text-slate-600">{Number(item.weight_kg || 0)} kg × PKR {Number(item.price_per_kg || 0).toLocaleString()}</p>
+                  <p className="text-sm font-extrabold text-amber-900 mt-1">PKR {(Number(item.subtotal) || 0).toLocaleString()}</p>
                 </div>
                 <button onClick={() => removeFromCart(item.product_id)} className="text-rose-600 p-2 hover:bg-rose-100 rounded">
                   <Trash2 className="w-4 h-4" />

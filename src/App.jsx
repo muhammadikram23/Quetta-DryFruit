@@ -23,21 +23,32 @@ export default function App() {
 
   {/*Handle adding products to the cart with weight and subtotal calculations*/}
   const handleAddToCart = (product, weightKg) => {
-    const existingIndex = cart.findIndex(item => item.product_id === product.id);
-    const subtotal = weightKg * product.price_per_kg;
+    if (!product) return;
 
-    {/*If the product already exists in the cart, update its weight and subtotal; otherwise, add it as a new item*/}
+    // Safely determine the weight from weightKg or properties on the product object
+    const rawWeight = (typeof weightKg === 'number' && !isNaN(weightKg))
+      ? weightKg
+      : Number(product?.weight_kg || product?.weight || product?.quantity || 1);
+    const weight = Number(rawWeight.toFixed(2));
+
+    const pricePerKg = Number(product?.price_per_kg || 0);
+    const productId = product?.id || product?.product_id;
+
+    const existingIndex = cart.findIndex(item => item.product_id === productId);
+
     if (existingIndex > -1) {
       const newCart = [...cart];
-      newCart[existingIndex].weight_kg += weightKg;
-      newCart[existingIndex].subtotal += subtotal;
+      const updatedWeight = Number((newCart[existingIndex].weight_kg + weight).toFixed(2));
+      newCart[existingIndex].weight_kg = updatedWeight;
+      newCart[existingIndex].subtotal = Number((updatedWeight * pricePerKg).toFixed(2));
       setCart(newCart);
     } else {
+      const subtotal = Number((weight * pricePerKg).toFixed(2));
       setCart([...cart, {
-        product_id: product.id,
+        product_id: productId,
         title: product.title,
-        price_per_kg: product.price_per_kg,
-        weight_kg: weightKg,
+        price_per_kg: pricePerKg,
+        weight_kg: weight,
         subtotal: subtotal
       }]);
     }
