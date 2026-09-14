@@ -38,7 +38,7 @@ export default function AdminLogin() {
 
         {error && <div className="bg-rose-50 text-rose-700 p-3 rounded-lg text-sm border border-rose-200 text-center">{error}</div>}
 
-        {/**/}Admin login form with username and password fields
+        {/*Admin login form with username and password fields*/}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>

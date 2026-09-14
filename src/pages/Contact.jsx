@@ -120,7 +120,7 @@ export default function Contact() {
               </div>
             </div>
             
-            {/**/}Store Rating Dropdown
+            {/*Store Rating Dropdown*/}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Store Rating</label>
               <select 
@@ -136,7 +136,7 @@ export default function Contact() {
               </select>
             </div>
 
-            {/**/}Feedback Message Textarea
+            {/*Feedback Message Textarea*/}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Your Message / Feedback</label>
               <textarea 
