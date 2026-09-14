@@ -15,7 +15,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
-import AdminFeedback from './pages/adminFeedback';
+import AdminFeedback from './pages/AdminFeedback';
 import AdminProfit from './pages/AdminProfit';
 
 export default function App() {
